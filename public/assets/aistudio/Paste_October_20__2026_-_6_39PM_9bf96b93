@@ -1,0 +1,928 @@
+# MASTER PROMPT: BUILD STUDYOS — AN AI-POWERED STUDY MANAGEMENT PLATFORM
+
+## 1. YOUR ROLE
+
+Act as a senior full-stack developer, product designer, UI/UX designer, database architect, AI engineer, and QA engineer.
+
+Design and build a polished, production-minded study management application called **StudyOS**.
+
+Do not create just a landing page or a static dashboard mockup. Build a functional application with real navigation, reusable components, persistent data, working interactions, proper error handling, and a scalable architecture.
+
+Make sensible implementation decisions independently. Do not ask unnecessary questions. If a third-party service requires credentials, implement the integration safely and provide clear setup instructions rather than inventing credentials or pretending the integration works.
+
+## 2. PRODUCT VISION
+
+StudyOS is an AI-powered personal study companion for school students, college students, competitive-exam aspirants, and independent learners.
+
+Its main purpose is to help users:
+- Build consistent study habits.
+- Plan realistic study schedules.
+- Focus without unnecessary distractions.
+- Organize subjects, topics, notes, and deadlines.
+- Understand difficult concepts using AI.
+- Revise information effectively.
+- Measure learning progress over time.
+
+The core product philosophy is:
+
+"Know what to study. Start focusing. Learn effectively. Stay consistent."
+
+Prioritize usefulness, simplicity, speed, reliability, and an excellent user experience over feature quantity.
+
+## 3. TARGET PLATFORMS
+
+Build for both web and mobile.
+
+Recommended architecture:
+- Web: Next.js, React, TypeScript.
+- Mobile: Expo, React Native, TypeScript.
+- Backend: Supabase.
+- Database: PostgreSQL.
+- Authentication: Supabase Auth.
+- File storage: Supabase Storage.
+- Server-side AI integration: secure backend endpoints or server functions.
+- Web styling: Tailwind CSS and reusable design tokens.
+- Data fetching: TanStack Query where appropriate.
+- Validation: Zod.
+- Forms: React Hook Form.
+- Web deployment: Vercel or an equivalent platform.
+- Mobile builds: Expo EAS.
+
+Organize the project as a monorepo where practical. Share types, validation schemas, API contracts, business logic, and design tokens where appropriate.
+
+Keep web-specific and native-specific presentation components separate when their behavior differs.
+
+If the execution environment supports only one platform, fully implement that platform and structure the code for future cross-platform development. Never claim that a mobile app has been built or tested if it has not.
+
+## 4. VISUAL DESIGN AND BRAND IDENTITY
+
+Create a premium, minimal, modern productivity interface.
+
+Design inspiration:
+- High-quality developer productivity tools.
+- Minimalist note-taking applications.
+- Premium task managers.
+- Calm, distraction-free study environments.
+
+Do not copy any existing product's interface exactly.
+
+### Visual direction
+- Neutral backgrounds.
+- A restrained indigo or violet accent color.
+- Clean typography.
+- Subtle borders and shadows.
+- Rounded cards with consistent corner radii.
+- Clear spacing and alignment.
+- Small, purposeful animations.
+- Beautiful empty states.
+- Strong visual hierarchy.
+- Minimal visual clutter.
+
+Avoid excessive gradients, excessive glassmorphism, oversized headings, unnecessary decoration, and too many accent colors.
+
+### Theme system
+
+Implement:
+1. Light mode.
+2. Dark mode.
+3. System theme.
+
+The system theme should follow the device preference by default. Save the user's explicit theme selection and synchronize it across devices when signed in.
+
+Define reusable design tokens for:
+- Backgrounds and surfaces.
+- Primary and secondary text.
+- Borders and dividers.
+- Primary and secondary actions.
+- Success, warning, error, and information states.
+- Spacing, typography, shadows, and radii.
+
+Ensure readable contrast in both themes. Never hardcode the entire application to one theme.
+
+### Responsive design
+
+Desktop:
+- Sidebar navigation.
+- Spacious dashboard layouts.
+- Calendar and analytics views.
+- Keyboard-friendly workflows.
+
+Tablet:
+- Adaptable sidebar.
+- Responsive grid layouts.
+- Touch-friendly controls.
+
+Mobile:
+- Bottom navigation.
+- Single-column layouts.
+- Large touch targets.
+- Compact task cards.
+- Full-screen focus mode.
+- Safe-area-aware layouts.
+- Forms that work well on small screens.
+
+Include loading skeletons, empty states, error states, confirmation dialogs, and success feedback.
+
+## 5. APPLICATION NAVIGATION
+
+Create the following main navigation:
+
+1. Home
+2. Planner
+3. Focus
+4. Library
+5. AI Coach
+
+Place Progress, Profile, Preferences, and Help in the sidebar or profile menu.
+
+Navigation must work. Every visible navigation item must open its intended screen.
+
+### Home
+Display:
+- Personalized greeting.
+- Current date.
+- Today's planned study time.
+- Completed versus remaining tasks.
+- Current focus goal.
+- Upcoming deadlines.
+- Today's schedule.
+- Continue-last-session action when applicable.
+- Weekly progress.
+- Quick-add task button.
+- Start Focus button.
+- Contextual AI suggestions.
+
+Keep the most important next action prominent.
+
+### Planner
+Provide:
+- Day view.
+- Week view.
+- Month view.
+- Task list.
+- Deadline calendar.
+- Unscheduled tasks.
+- Priority filters.
+- Subject filters.
+- Search.
+- Manual scheduling.
+- Task creation and editing.
+- Rescheduling missed tasks.
+
+Users must be able to switch between calendar and list views.
+
+### Focus
+Provide:
+- Current task and subject.
+- Session objective.
+- Circular or similarly clear timer.
+- Start, pause, resume, and finish controls.
+- Short-break and long-break options.
+- Custom duration settings.
+- Elapsed focused time.
+- Session progress.
+- Optional distraction notes.
+- Session-completion summary.
+
+Keep the focus screen calm and visually quiet.
+
+### Library
+Organize learning materials into:
+- Courses or semesters.
+- Subjects.
+- Units or chapters.
+- Topics.
+- Notes.
+- Uploaded documents.
+- Bookmarks.
+- Flashcards.
+- Revision materials.
+
+Allow users to organize materials according to their learning style. Do not force all users into a college-semester structure.
+
+### AI Coach
+Provide:
+- AI chat interface.
+- Explain-a-topic tool.
+- Summarize-material tool.
+- Study-plan generator.
+- Quiz generator.
+- PDF question-answering tool.
+- Revision suggestions.
+- Weak-topic analysis.
+
+Include chat history, loading indicators, error handling, and the ability to start a new conversation.
+
+### Progress
+Display:
+- Total focused minutes.
+- Daily and weekly study trends.
+- Sessions completed.
+- Planned versus completed sessions.
+- Subject-level time allocation.
+- Topic completion.
+- Weekly goal progress.
+- Quiz performance when quiz data exists.
+- Consistency trends.
+
+Never display invented analytics. Use actual stored data and meaningful empty states.
+
+## 6. AUTHENTICATION AND ONBOARDING
+
+Implement secure authentication using Supabase Auth.
+
+Support appropriate sign-in methods, such as email/password and OAuth providers when configured.
+
+Include:
+- Registration.
+- Sign-in.
+- Sign-out.
+- Password recovery.
+- Session persistence.
+- Protected routes.
+- Authentication error handling.
+
+### Onboarding flow
+
+Step 1: Welcome to StudyOS.
+
+Step 2: Ask the user's learning category:
+- School.
+- College.
+- Competitive exams.
+- Self-learning.
+- Other.
+
+Step 3: Ask for goals:
+- Improve focus.
+- Prepare for exams.
+- Learn new skills.
+- Complete assignments.
+- Build a consistent routine.
+
+Step 4: Let users add their subjects, courses, or learning goals.
+
+Step 5: Ask for a realistic weekly study target and preferred study times.
+
+Step 6: Let users configure preferred focus and break durations.
+
+Step 7: Offer to generate an initial study plan.
+
+Users must be allowed to skip optional steps and edit preferences later.
+
+Do not collect unnecessary personal information.
+
+## 7. TASK AND SUBJECT MANAGEMENT
+
+Implement complete create, read, update, and delete operations.
+
+### Subjects
+Fields:
+- ID.
+- User ID.
+- Name.
+- Description.
+- Color.
+- Optional course or semester.
+- Created timestamp.
+- Updated timestamp.
+
+### Topics
+Fields:
+- ID.
+- Subject ID.
+- Title.
+- Description.
+- Difficulty.
+- Priority.
+- Learning status.
+- Estimated effort.
+- Completion timestamp.
+
+Learning statuses:
+- Not started.
+- In progress.
+- Needs revision.
+- Completed.
+
+### Tasks
+Fields:
+- ID.
+- User ID.
+- Optional subject and topic references.
+- Title.
+- Description.
+- Priority.
+- Estimated duration.
+- Due date.
+- Scheduled start and end.
+- Completion status.
+- Created and updated timestamps.
+
+Support:
+- Quick task creation.
+- Editing and deletion.
+- Task completion.
+- Priority changes.
+- Deadline reminders.
+- Search and filters.
+- Sorting.
+- Rescheduling.
+- Optional recurring tasks.
+- Unscheduled tasks.
+
+Persist all changes in the database. Do not rely solely on in-memory state or browser local storage for authenticated user records.
+
+## 8. SMART STUDY PLANNER
+
+Build a planner that helps users allocate time realistically.
+
+Inputs:
+- Tasks and their estimated durations.
+- Deadlines.
+- Importance and urgency.
+- Topic difficulty.
+- Available study hours.
+- Preferred study times.
+- Existing calendar commitments when available.
+- Revision requirements.
+- User-defined daily workload limits.
+
+The AI may propose a schedule, but application code must validate it.
+
+Rules:
+- Avoid overlapping sessions.
+- Respect availability and deadlines.
+- Do not schedule more time than the user has available.
+- Reserve reasonable breaks.
+- Prioritize urgent and important work.
+- Leave buffer time for unexpected delays.
+- Never schedule every minute of a day.
+- Allow manual overrides.
+- Explain scheduling trade-offs.
+- Allow users to accept, edit, or reject proposed plans.
+
+If the plan cannot fit all tasks, clearly show the conflict and offer alternatives.
+
+Implement a missed-task recovery flow that helps users reschedule or reduce scope without guilt-inducing language.
+
+## 9. FOCUS TIMER
+
+Implement a reliable focus timer.
+
+Default preset:
+- 25 minutes focus.
+- 5 minutes short break.
+- Optional longer break after several sessions.
+
+Allow custom durations.
+
+### Timer requirements
+
+Support:
+- Start.
+- Pause.
+- Resume.
+- Finish early.
+- Cancel with confirmation when appropriate.
+- Break transitions.
+- Session summaries.
+- Task association.
+- Historical session review.
+
+Store timestamps and calculate elapsed time from them. Do not depend exclusively on setInterval or a continuously running frontend counter.
+
+The timer must recover correctly after:
+- Browser refresh.
+- App backgrounding.
+- Navigation away from the focus screen.
+- Temporary device suspension.
+
+Track active time separately from paused time. Count only actual focused intervals toward focused-time analytics.
+
+For mobile, use suitable native lifecycle handling and notifications where permitted.
+
+For web, explain that background execution and notifications have browser limitations.
+
+Never claim that a timer blocks all distractions unless a real, platform-supported blocking feature has been implemented.
+
+## 10. AI STUDY ASSISTANT
+
+Integrate a real AI model through a secure server-side service.
+
+Never expose provider API keys in client-side code, source maps, mobile bundles, or public environment variables.
+
+Create a provider abstraction so the underlying AI provider can be changed later.
+
+### AI Tutor
+
+Allow users to:
+- Ask questions.
+- Request beginner-friendly explanations.
+- Request more advanced explanations.
+- See examples.
+- Request step-by-step problem-solving guidance.
+- Generate summaries.
+- Ask follow-up questions.
+- Request practice questions.
+
+Adapt explanations to the selected learning level.
+
+Clearly distinguish between verified source material and general AI-generated explanations.
+
+### PDF and document assistant
+
+Allow supported document uploads.
+
+Requirements:
+- Validate file type and file size.
+- Extract document text on the server.
+- Preserve page numbers where available.
+- Handle scanned documents through optional OCR.
+- Use retrieval over relevant document passages for questions.
+- Cite source pages or passages when possible.
+- Handle unreadable or empty documents gracefully.
+- Keep documents private.
+
+Never pretend to have read a file that could not be processed.
+
+### AI summarizer
+
+Generate:
+- Short summaries.
+- Detailed notes.
+- Key concepts.
+- Definitions.
+- Important formulas.
+- Flashcards.
+- Practice questions.
+- Revision checklists.
+
+Allow users to choose the output format.
+
+### AI quiz generator
+
+Support:
+- Multiple-choice questions.
+- Short-answer questions.
+- True/false questions.
+- Topic-specific quizzes.
+- Difficulty selection.
+- Answer explanations.
+- Score summaries.
+
+Store quiz attempts and answers when appropriate. Clearly indicate when AI-generated questions or answers may need verification.
+
+### AI study-plan generator
+
+Return structured data containing:
+- Proposed tasks.
+- Topic references.
+- Estimated duration.
+- Priority.
+- Suggested date and time.
+- Reason for prioritization.
+- Revision sessions.
+- Warnings about conflicts or insufficient time.
+
+Validate the result using a schema before displaying it.
+
+Create proposed plans as drafts. Only save or apply schedule changes after the user confirms them.
+
+### AI service reliability
+
+Implement:
+- Loading states.
+- Timeouts.
+- Retries where safe.
+- Rate limits.
+- Usage limits.
+- Error handling.
+- Request validation.
+- Reasonable token limits.
+- Logging that excludes sensitive content by default.
+
+The rest of the app must remain usable if the AI service is unavailable.
+
+## 11. REVISION AND SPACED REPETITION
+
+Build revision features after the core MVP works.
+
+Support flashcards with:
+- Question.
+- Answer.
+- Subject and topic.
+- Difficulty.
+- Creation date.
+
+After reviewing a card, let the user select:
+- Again.
+- Hard.
+- Good.
+- Easy.
+
+Use these responses to calculate a suggested next review date.
+
+Provide:
+- Daily revision queue.
+- Overdue cards.
+- Due-today cards.
+- Revision history.
+- Topic-level accuracy.
+- Manual review scheduling.
+
+Keep the scheduling algorithm deterministic and testable. Store review history so the schedule can be recalculated or audited.
+
+## 12. DATABASE DESIGN
+
+Use PostgreSQL with appropriate foreign keys, constraints, indexes, and row-level security.
+
+Create migrations for at least the following tables:
+
+### profiles
+- id, referencing the authenticated user.
+- display_name.
+- timezone.
+- theme_preference.
+- weekly_goal_minutes.
+- created_at.
+- updated_at.
+
+### subjects
+- id.
+- user_id.
+- name.
+- description.
+- color.
+- optional category.
+- created_at.
+- updated_at.
+
+### topics
+- id.
+- subject_id.
+- title.
+- description.
+- difficulty.
+- priority.
+- status.
+- estimated_minutes.
+- completed_at.
+
+### tasks
+- id.
+- user_id.
+- optional subject_id.
+- optional topic_id.
+- title.
+- description.
+- priority.
+- estimated_minutes.
+- due_at.
+- scheduled_start.
+- scheduled_end.
+- status.
+- created_at.
+- updated_at.
+
+### study_sessions
+- id.
+- user_id.
+- optional task_id.
+- started_at.
+- ended_at.
+- focused_seconds.
+- status.
+- session_notes.
+- created_at.
+
+If pauses need auditing, add a session intervals or pause-events table instead of guessing active time from the total duration.
+
+### study_plans
+- id.
+- user_id.
+- title.
+- start_date.
+- end_date.
+- status.
+- created_at.
+- updated_at.
+
+### plan_items
+- id.
+- study_plan_id.
+- task_id.
+- scheduled_start.
+- scheduled_end.
+- status.
+
+### resources
+- id.
+- user_id.
+- optional subject_id.
+- title.
+- resource_type.
+- private_storage_path.
+- processing_status.
+- created_at.
+
+### flashcards
+- id.
+- user_id.
+- optional topic_id.
+- question.
+- answer.
+- created_at.
+- updated_at.
+
+### review_history
+- id.
+- user_id.
+- flashcard_id.
+- rating.
+- reviewed_at.
+- next_review_at.
+
+### ai_conversations
+- id.
+- user_id.
+- title.
+- created_at.
+- updated_at.
+
+### ai_messages
+- id.
+- conversation_id.
+- role.
+- content.
+- created_at.
+
+Add quiz and quiz-attempt tables when implementing quizzes.
+
+Use UUID primary keys, suitable timestamp types, check constraints, and indexes for frequent queries.
+
+All private records must have enforceable ownership rules. Enable row-level security for every applicable table and private storage bucket.
+
+Write and test database migrations rather than relying only on manual dashboard configuration.
+
+## 13. SECURITY AND PRIVACY
+
+Treat security as a core feature.
+
+Requirements:
+- Enforce row-level security.
+- Verify authorization in backend endpoints.
+- Never trust a user_id supplied by the client without verifying the authenticated identity.
+- Keep privileged keys server-side.
+- Validate and sanitize inputs.
+- Restrict file upload size and supported types.
+- Prevent users from reading another user's files or AI conversations.
+- Avoid logging API keys, passwords, or private document contents.
+- Provide data export and account deletion workflows.
+- Explain AI processing and data retention.
+- Use consent-based analytics where required.
+- Apply reasonable rate limits.
+- Use secure session handling.
+- Keep dependencies updated.
+
+If the application serves children, account for applicable privacy requirements and age-appropriate defaults.
+
+## 14. ANALYTICS AND PROGRESS
+
+Calculate metrics from real stored data.
+
+Include:
+- Total focused time.
+- Focused time by day and week.
+- Completed sessions.
+- Task completion rate.
+- Planned versus actual duration.
+- Subject-level time distribution.
+- Weekly goal progress.
+- Topic completion.
+- Quiz performance when available.
+- Consistency across active study days.
+
+Distinguish between:
+- Time spent in a session.
+- Actual focused time.
+- Scheduled time.
+- Completed task time.
+
+Handle empty data, incomplete sessions, and changes in time zones correctly.
+
+Never invent sample statistics for real users. Demo data must be explicitly labeled and isolated from production records.
+
+## 15. NOTIFICATIONS
+
+Provide configurable reminders for:
+- Upcoming study sessions.
+- Upcoming deadlines.
+- Revision due dates.
+- Weekly progress summaries.
+
+Respect notification permissions, quiet hours, and time zones.
+
+Do not repeatedly send reminders when a user dismisses them. Allow notification preferences to be changed at any time.
+
+Use native notifications on mobile where supported and browser notifications on web where permission is granted. Include an in-app fallback.
+
+## 16. PERFORMANCE AND ACCESSIBILITY
+
+Requirements:
+- Lazy-load heavy routes and document viewers.
+- Paginate large lists.
+- Avoid unnecessary re-renders.
+- Optimize images and assets.
+- Provide loading, empty, and error states.
+- Support keyboard navigation on web.
+- Use semantic HTML and accessible labels.
+- Provide visible focus indicators.
+- Maintain readable contrast in both themes.
+- Respect reduced-motion preferences.
+- Use sufficiently large touch targets.
+- Support appropriate screen-reader semantics.
+- Avoid blocking the main interface during AI requests.
+
+## 17. TESTING REQUIREMENTS
+
+Use automated tests where practical.
+
+Unit tests:
+- Timer calculations.
+- Pause/resume behavior.
+- Time-zone handling.
+- Task status transitions.
+- Scheduling conflicts.
+- Planner constraints.
+- Revision scheduling.
+- Validation schemas.
+
+Integration tests:
+- Authentication.
+- Database ownership and authorization.
+- CRUD operations.
+- Session persistence.
+- AI response validation.
+- File access permissions.
+
+End-to-end tests:
+- New user onboarding.
+- Create a subject and task.
+- Plan a study session.
+- Complete a focus session.
+- Refresh and recover an active session.
+- Switch themes.
+- Generate and approve an AI study plan.
+- Verify that one user cannot access another user's private data.
+
+Test the web application in a browser and the mobile app on supported devices or emulators.
+
+Do not claim tests have passed unless they have actually been run.
+
+## 18. IMPLEMENTATION PHASES
+
+### Phase 1: Foundation
+- Set up the repository and architecture.
+- Create design tokens and reusable components.
+- Configure authentication.
+- Create database migrations and security policies.
+- Implement responsive navigation and themes.
+
+### Phase 2: Core MVP
+- Dashboard.
+- Subjects and topics.
+- Task management.
+- Planner and deadlines.
+- Focus timer.
+- Session history.
+- Basic progress analytics.
+
+### Phase 3: AI
+- Secure AI service.
+- Tutor chat.
+- Structured study-plan generation.
+- Plan validation and approval.
+- Usage limits and failure handling.
+
+### Phase 4: Learning tools
+- Private document uploads.
+- Summaries and document questions.
+- Flashcards.
+- Quizzes.
+- Spaced repetition.
+
+### Phase 5: Mobile and polish
+- Native navigation.
+- Mobile notifications.
+- Lifecycle-safe focus sessions.
+- Responsive and accessible layouts.
+- Error monitoring and performance improvements.
+
+### Phase 6: Release
+- Run security checks.
+- Run tests.
+- Configure production environment variables.
+- Deploy the web app.
+- Prepare mobile builds.
+- Document setup, deployment, backups, and recovery.
+
+Prioritize a functional MVP over implementing every advanced feature immediately.
+
+## 19. REQUIRED PROJECT STRUCTURE
+
+Use a clear, maintainable structure similar to:
+
+studyos/
+  apps/
+    web/
+    mobile/
+  packages/
+    shared/
+    validation/
+    api-client/
+    design-tokens/
+  supabase/
+    migrations/
+    seed.sql
+  docs/
+    architecture.md
+    setup.md
+    deployment.md
+    database.md
+  .env.example
+  README.md
+
+Adapt this structure to the chosen tooling when necessary.
+
+Keep business logic out of giant UI components. Use reusable components, typed service functions, clear module boundaries, and consistent error handling.
+
+Do not create unnecessary abstractions before they are useful.
+
+## 20. NON-NEGOTIABLE IMPLEMENTATION RULES
+
+1. Build real functionality, not just a visual mockup.
+2. Do not leave important buttons nonfunctional.
+3. Do not use fake authentication or pretend data persistence.
+4. Do not hardcode API secrets or credentials.
+5. Do not fabricate AI results or claim external integrations work when they are not configured.
+6. Do not overwrite user data silently.
+7. Do not create overlapping study sessions without warning.
+8. Do not count paused time as focused time.
+9. Do not allow unauthorized access to private records.
+10. Do not show fabricated analytics as real user statistics.
+11. Use consistent loading, empty, success, and error states.
+12. Make all main navigation links work.
+13. Validate data on both client and server where appropriate.
+14. Document every external service that requires configuration.
+15. Do not attempt to implement every advanced feature before the MVP works.
+16. If blocked by missing credentials, continue with the rest of the app and document the required setup.
+17. Do not overwrite existing project files blindly; inspect the existing project first.
+18. Do not declare the application production-ready without appropriate tests and deployment verification.
+
+## 21. DEFINITION OF DONE
+
+The MVP is complete when:
+
+- Users can register and sign in securely.
+- Users can create and manage subjects, topics, and tasks.
+- The planner displays and manages schedules correctly.
+- The focus timer accurately records active study time.
+- Study sessions persist and recover correctly.
+- Dashboard analytics reflect actual stored data.
+- Theme preferences work throughout the application.
+- The AI can generate validated study-plan drafts and useful explanations.
+- Users can review AI-generated changes before applying them.
+- Web and mobile share the same backend data.
+- Database security policies are tested.
+- The application handles errors gracefully.
+- Setup and deployment instructions are documented.
+- Core user journeys have automated tests.
+
+## 22. FIRST EXECUTION INSTRUCTIONS
+
+Begin by inspecting the current project and determining what is already implemented.
+
+Then:
+
+1. Summarize the architecture and implementation plan.
+2. Establish the project structure.
+3. Implement the design system and responsive navigation.
+4. Configure the database schema, migrations, and authentication.
+5. Build the dashboard, planner, and focus timer.
+6. Connect all core features to persistent data.
+7. Test the primary user journeys.
+8. Add the secure AI integration.
+9. Continue with advanced features only after the core application works.
+
+After each phase, report:
+- What was implemented.
+- Which files or modules changed.
+- Which tests were run and their actual results.
+- Which services require credentials.
+- What remains incomplete.
+- The next recommended step.
+
+The final result should feel like a polished, trustworthy, calm, premium productivity product that people genuinely want to use every day.
+
+Build StudyOS to help users spend less time deciding what to do and more time learning effectively.

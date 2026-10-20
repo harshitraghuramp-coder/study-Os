@@ -1,0 +1,6 @@
+{
+  "name": "StudyOS — AI-Powered Study Management Platform",
+  "description": "An AI-powered personal study companion for students and learners featuring smart study planning, recoverable focus timers, library organization, spaced repetition, and an intelligent AI coach.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
